@@ -1,0 +1,2 @@
+# stockSystem
+sistema de inventarios

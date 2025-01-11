@@ -1,0 +1,33 @@
+version: '3.4'
+
+
+networks:
+    stocKnetwork:
+
+
+services:
+  sqlserverDocker:
+    container_name: sql_server_docker
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 8006:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Sql@dmin24
+    networks:
+    - stocKnetwork
+    
+
+  stocksystem:
+    image: ${DOCKER_REGISTRY-}stocksystem
+    container_name: stockSystem
+    build:
+      context: .
+      dockerfile: stockSystem/Dockerfile
+    networks:
+    - stocKnetwork
+    depends_on:
+    - sqlserverDocker
+    ports:
+    - 5001:8080
+    
