@@ -12,9 +12,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stockSystem.DataAccess", "stockSystem.DataAccess\stockSystem.DataAccess.csproj", "{C0A3535A-04B5-4B48-B887-F10943437568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stockSystem.Repository", "stockSystem.Repository\stockSystem.Repository.csproj", "{9A786E0A-E1AD-45A9-9973-43426743EEA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stockSystem.Repository", "stockSystem.Repository\stockSystem.Repository.csproj", "{9A786E0A-E1AD-45A9-9973-43426743EEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stockSystem.Services", "stockSystem.Services\stockSystem.Services.csproj", "{FE7D5CD3-760D-45CF-87C1-BC1101238FE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stockSystem.Services", "stockSystem.Services\stockSystem.Services.csproj", "{FE7D5CD3-760D-45CF-87C1-BC1101238FE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

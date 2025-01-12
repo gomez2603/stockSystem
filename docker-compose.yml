@@ -30,4 +30,19 @@ services:
     - sqlserverDocker
     ports:
     - 5001:8080
+  
+  stockFrontend:
+   image: ${DOCKER_REGISTRY-}stocksystemfrontend
+   container_name: stockSystemFrontend
+   build:
+      context: .
+      dockerfile: stockSystemFrontend/Dockerfile
+   networks:
+    - stocKnetwork
+   depends_on:
+    - sqlserverDocker
+   ports:
+    - 80:80
+
+
     

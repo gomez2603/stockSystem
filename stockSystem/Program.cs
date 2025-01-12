@@ -22,6 +22,17 @@ builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddDbContext<stockSystemContext>(options =>
  options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
+string policy = "MyPolicy";
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policy, builder =>
+      builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+      .AllowAnyHeader().AllowAnyMethod());
+
+});
+
 
 var app = builder.Build();
 
@@ -29,11 +40,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(); 
 }
 
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors(policy);
 app.Run();
