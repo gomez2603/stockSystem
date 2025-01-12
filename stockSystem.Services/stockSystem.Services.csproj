@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\stockSystem.DataAccess\stockSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\stockSystem.Repository\stockSystem.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

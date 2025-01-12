@@ -1,4 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using stockSystem.Dtos;
+using stockSystem.Repository.Implementation;
+using stockSystem.Repository.Interfaces;
+using stockSystem.Services;
+using stockSystem.Services.Interfaces;
 using StockSystem.dataAccess.context;
 
 
@@ -11,7 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddDbContext<stockSystemContext>(options =>
  options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
 
