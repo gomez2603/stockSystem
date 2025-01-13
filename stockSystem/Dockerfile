@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["stockSystem/stockSystem.csproj", "stockSystem/"]
+RUN curl -o /usr/local/share/ca-certificates/verisign.crt -SsL https://crt.sh/?d=1039083 && update-ca-certificates
 RUN dotnet restore "./stockSystem/stockSystem.csproj"
 COPY . .
 WORKDIR "/src/stockSystem"
