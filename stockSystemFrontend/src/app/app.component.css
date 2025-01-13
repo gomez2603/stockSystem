@@ -18,3 +18,12 @@
     flex-direction: row;
     margin: 1em;
   }
+
+.mat-toolbar h1 {
+    font-family: Noto;
+    font-size: 24px;
+   
+    font-weight: 700;
+   
+    margin: 0;
+}
