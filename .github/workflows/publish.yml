@@ -1,0 +1,24 @@
+name:publish
+
+on: 
+  push:
+    branches: ["main"]
+
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-lastest
+    steps: 
+      - name: checkout the code 
+        uses: actions/checkout@v2
+      
+      - name: login to github container Resgitry
+        uses: docker/login-action@v1|
+        with: 
+         registry: ghrc.io
+         username: ${{github.actor}}
+         password: ${{secrets.TOKEN_DOCKER}}
+      - name: Build Image
+        rum: |
+            docker compose -f "docker-compose.yml" up -d --build 
+            docker compose -f "docker-compose.yml" up -d push
+      
