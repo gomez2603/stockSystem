@@ -6,6 +6,8 @@ using stockSystem.Dtos;
 
 using AutoMapper;
 using System.Text;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace stockSystem.Controllers
 {
@@ -17,10 +19,12 @@ namespace stockSystem.Controllers
 
         private readonly IProductService _service;
         private readonly IMapper _mapper;
-        public ProductController(IProductService service, IMapper mapper)
+        private readonly Cloudinary _cloudinary;
+        public ProductController(IProductService service, IMapper mapper, Cloudinary cloudinary)
         {
             _service = service;
             _mapper = mapper;
+            _cloudinary = cloudinary;
         }
 
 
@@ -52,12 +56,16 @@ namespace stockSystem.Controllers
             var data = this._mapper.Map<Product>(productDto);
             if (productDto.file != null)
             {
-                using var stream = productDto.file.OpenReadStream();
-                using var ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-                byte[] file = ms.ToArray();
-                data.Image = Convert.ToBase64String(file);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(productDto.Name, productDto.file.OpenReadStream()),
+                    AssetFolder = "Products"
+
+                };
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                data.Image = uploadResult.SecureUrl.ToString();
             }
+            
             _service.Add(data);
             return Created("", data);
         }
@@ -68,11 +76,14 @@ namespace stockSystem.Controllers
             var data = this._mapper.Map<Product>(productDto);
             if (productDto.file != null)
             {
-                using var stream = productDto.file.OpenReadStream();
-                using var ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-                byte[] file = ms.ToArray();
-                data.Image = Convert.ToBase64String(file);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(productDto.Name, productDto.file.OpenReadStream()),
+                    AssetFolder = "Products"
+
+                };
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                data.Image = uploadResult.SecureUrl.ToString();
             }
             _service.Update(data);
             return Created("", data);
