@@ -17,8 +17,4 @@ jobs:
          registry: ghrc.io
          username: ${{github.actor}}
          password: ${{secrets.TOKEN_DOCKER}}
-      - name: Build Image
-        rum: |
-            docker compose -f "docker-compose.yml" up -d --build 
-            docker compose -f "docker-compose.yml" up -d push
-      
+
