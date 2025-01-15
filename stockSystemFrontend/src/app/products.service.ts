@@ -6,7 +6,7 @@ import { Product_Create_update, Products } from "./models/products";
 @Injectable({providedIn:'root'})
 export  class ProductService{
 private readonly _http =inject(HttpClient)
-private readonly _apiUrl ='http://localhost:5001/api/product'
+private readonly _apiUrl ='http://34.219.166.49:5001/api/product'
 
 getProducts():Observable<Products[]>{
     return this._http.get<Products[]>(this._apiUrl)
