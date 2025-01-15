@@ -1,54 +1,105 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using stockSystem.Dtos;
 using stockSystem.Services;
 using stockSystem.Services.Interfaces;
 using StockSystem.dataAccess.context;
 using StockSystem.dataAccess.Models;
+using System.Runtime.Intrinsics.X86;
 
 namespace stockSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     public class userController : ControllerBase
     {
 
         private readonly IUserService _service;
-
-        public userController(IUserService service) {
+        private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
+        
+        public userController(IUserService service,IMapper mapper,IAuthService auth) {
             _service = service;
+            _mapper = mapper;
+            _authService = auth;
         }
 
 
         [HttpGet]
         public IActionResult Get() {
-
-            return Ok(_service.GetAll());
+            var map = _mapper.Map<IEnumerable<userResponseDto>>(_service.GetAll(incluirPropiedades: "Rol").ToList());
+            return Ok(map);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var user = _service.Get(id);
+            var user = _service.FindOne(x => x.Id == id, "Rol");
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(user);
+            var map = _mapper.Map<userResponseDto>(user);
+            return Ok(map);
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] User user)
-        {
-            _service.Add(user);
-            return Created("", user);
+        public IActionResult Add([FromBody] UserCreateDto user)
+        {   
+            var map = _mapper.Map<User>(user);
+            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            map.PasswordHash = passwordHash;
+            map.PasswordSalt = passwordSalt;
+            try
+            {
+                _service.Add(map);
+                var response = _mapper.Map<userResponseDto>(map);
+
+                return Created("", response);
+            }
+            catch (Exception ex) { 
+                return BadRequest("El nombre de usuario ya esta en uso");
+            }
         }
 
-    [HttpPut]
-    public IActionResult update([FromBody] User user)
+        [HttpPost("/login")]
+        [AllowAnonymous]
+        public IActionResult login([FromBody] LoginDto user)
+        {
+            var usertoLogin = _service.FindOne(x => x.Username == user.Username,"Rol");
+            if (_authService.VerifyPassword(user.Password, usertoLogin.PasswordHash, usertoLogin.PasswordSalt))
+            {
+                var response = _mapper.Map<userLoginResponse>(usertoLogin);
+                response.token = _authService.CreateToken(usertoLogin);
+                return Ok(response);
+            }
+           
+            return BadRequest("Usuario o Contraseña Incorrecta");
+          
+        }
+
+        [HttpPut]
+    public IActionResult update([FromBody] UserCreateDto user)
     {
-        _service.Update(user);
-        return Created("", user);
-    }
+            var  map = _mapper.Map<User>(user);
+            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            map.PasswordHash = passwordHash;
+            map.PasswordSalt = passwordSalt;
+            try
+            {
+
+         
+            _service.Update(map);
+                var response = _mapper.Map<userResponseDto>(map);
+                return Created("", response);
+            }
+            catch (Exception ex) {
+                return BadRequest("El nombre de usuario ya esta en uso");
+            }
+        }
 
         [HttpDelete]
         public IActionResult Delete(int id)

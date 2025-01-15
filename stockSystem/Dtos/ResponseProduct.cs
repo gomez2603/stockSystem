@@ -15,6 +15,6 @@ namespace stockSystem.Dtos
     
         public string Image { get; set; }
         public int userId { get; set; }
-        public string userName { get; set; }
+        public string userUsername { get; set; }
     }
 }

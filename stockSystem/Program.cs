@@ -1,11 +1,16 @@
 using CloudinaryDotNet;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using stockSystem.Dtos;
 using stockSystem.Repository.Implementation;
 using stockSystem.Repository.Interfaces;
 using stockSystem.Services;
 using stockSystem.Services.Interfaces;
 using StockSystem.dataAccess.context;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +26,38 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddDbContext<stockSystemContext>(options =>
  options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+//JWT
+builder.Services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standar Authorization Header using JWTToken",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+
+    });
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer
+    (options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration
+            .GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+
 string policy = "MyPolicy";
 
 
@@ -51,8 +86,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); 
 }
 
-app.UseAuthorization();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
 app.MapControllers();
 app.UseCors(policy);
 app.Run();

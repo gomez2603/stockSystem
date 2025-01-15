@@ -10,7 +10,9 @@ namespace stockSystem.Dtos
 
             CreateMap<Product,ResponseProduct>();
             CreateMap<CreateUpdateProduct, Product>();
-
+            CreateMap<UserCreateDto, User>();
+            CreateMap<User,userLoginResponse>();
+            CreateMap<User, userResponseDto>();
 
         }
     }

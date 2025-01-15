@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using stockSystem.DataAccess.Models;
+using stockSystem.DataAccess.Seeds;
 using StockSystem.dataAccess.Models;
 using StockSystem.dataAccess.Seeds;
 using System.Reflection.Emit;
@@ -17,6 +18,7 @@ namespace StockSystem.dataAccess.context
         public DbSet<Product> Products { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SalesDetail> SalesDetail { get; set; }
+        public DbSet<Rol> Rols { get; set; }
         public stockSystemContext(DbContextOptions<stockSystemContext> options) : base(options)
         {
 
@@ -43,7 +45,12 @@ namespace StockSystem.dataAccess.context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new RolSeed());
             builder.ApplyConfiguration(new userSeed());
+
+            builder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
 
             builder.Entity<SalesDetail>()
                 .HasKey(sd => new {sd.SalesId, sd.ProductId});

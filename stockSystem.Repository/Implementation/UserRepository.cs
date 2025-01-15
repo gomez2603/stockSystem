@@ -24,6 +24,11 @@ namespace stockSystem.Repository.Implementation
             if (user != null)
             {
                 userUpdate.Name = user.Name;
+                userUpdate.LastName  = user.LastName;
+                userUpdate.Username = user.Username;
+                userUpdate.PasswordHash = user.PasswordHash;
+                userUpdate.PasswordSalt  = user.PasswordSalt;
+                userUpdate.RolId = user.RolId;
                 _context.Users.Update(userUpdate);
 
             }
