@@ -8,6 +8,7 @@ networks:
 services:
   sqlserverDocker:
     container_name: sql_server_docker
+    user: root
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
         - 8006:1433
@@ -17,9 +18,9 @@ services:
     networks:
     - stocKnetwork
     volumes:
-      - ./database/data:/var/opt/mssql/data
-      - ./database/log:/var/opt/mssql/log
-      - ./database/backup:/var/opt/mssql/backup
+      - database/data:/var/opt/mssql/data
+      - database/log:/var/opt/mssql/log
+      - database/backup:/var/opt/mssql/backup
 
   stocksystem:
     image: ${DOCKER_REGISTRY-}stocksystem
