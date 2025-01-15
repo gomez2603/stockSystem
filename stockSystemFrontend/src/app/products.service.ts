@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Products } from "./models/products";
+import { Product_Create_update, Products } from "./models/products";
 
 @Injectable({providedIn:'root'})
 export  class ProductService{
@@ -12,6 +12,9 @@ getProducts():Observable<Products[]>{
     return this._http.get<Products[]>(this._apiUrl)
 }
 
+postProduct(dto:any):Observable<any>{
+    let headers = new HttpHeaders();
 
-
+return this._http.post<any>(this._apiUrl,dto)
+}
 }

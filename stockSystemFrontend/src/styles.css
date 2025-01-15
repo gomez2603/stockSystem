@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Noto, "Helvetica Neue", sans-serif !important; }
+html, body { min-height: 100vh;  box-sizing: border-box;}
+body { min-height: 100vh; }
+body { margin: 0; font-family:  "Noto Sans", "Helvetica Neue", sans-serif !important; }
 
 
+div[ng-view]{
+    height: 100%;
+}

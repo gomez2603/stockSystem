@@ -1,0 +1,19 @@
+.example-card {
+    max-width: 250px;
+    height: 400px;
+    margin: 1em;
+  }
+  .mat-mdc-card-content{
+    height: 200px;
+  }
+  .mat-mdc-card-title{
+    text-align: center;
+    font-family: Noto;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+.stockContainer{
+  display: flex;
+  gap: 2em;
+}

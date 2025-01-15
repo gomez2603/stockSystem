@@ -1,6 +1,10 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-
+    <ul style="list-style: none;">
+      <li ><a href="#">Crear Prouctos</a></li>
+      <li><a href="#">Inventario</a></li>
+      <li><a href="#">Ventas</a></li>
+    </ul>
   </mat-drawer>
 
 
@@ -15,29 +19,7 @@
 
 
 
+  <router-outlet></router-outlet>
 
 
-
-
-  <div class="container">
-    <mat-card *ngFor="let product of products$|async" class="example-card" appearance="outlined">
-      <mat-card-header>
-
-        <mat-card-title>{{product.name}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src="{{product.image}}" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-          {{product.description}}
-        </p>
-        <h3>Inventario: {{product.quantity}}</h3>
-        <h3>${{product.price}}</h3>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>Añadir al carrito</button>
-
-      </mat-card-actions>
-    </mat-card>
-
-  </div>
 </mat-drawer-container>

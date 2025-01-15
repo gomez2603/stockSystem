@@ -1,23 +1,9 @@
-.example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
 
-  .mat-mdc-card-actions{
-    
-    justify-content: flex-end;
-  }
+.mat-toolbar{
+  background-color:  #74565d;
+  color: #fff;
+}
 
-  .container{
-    display: flex;
-    gap: 2rem;
-    flex-direction: row;
-    margin: 1em;
-  }
 
 .mat-toolbar h1 {
     font-family: Noto;
@@ -26,4 +12,17 @@
     font-weight: 700;
    
     margin: 0;
+}
+
+body{
+  margin: 16px
+}
+
+.mat-drawer-container{
+  height: 100vh;
+}
+
+.mat-drawer.mat-drawer-opened{
+ background-color:  #74565d;
+ border-radius: 0;
 }
