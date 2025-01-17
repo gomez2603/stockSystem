@@ -50,7 +50,7 @@ namespace stockSystem.Controllers
         public IActionResult Add([FromBody] UserCreateDto user)
         {   
             var map = _mapper.Map<User>(user);
-            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);   
             map.PasswordHash = passwordHash;
             map.PasswordSalt = passwordSalt;
             try

@@ -8,3 +8,10 @@ body { margin: 0; font-family:  "Noto Sans", "Helvetica Neue", sans-serif !impor
 div[ng-view]{
     height: 100%;
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] { -moz-appearance:textfield; }

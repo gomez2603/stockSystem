@@ -25,4 +25,30 @@ body{
 .mat-drawer.mat-drawer-opened{
  background-color:  #74565d;
  border-radius: 0;
+ max-width: 200px;
+ height: 100vh;
 }
+.sidenav{
+  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+
+}
+
+  ul{
+    padding: 0 10px;
+    margin: 0;
+
+    
+  a{
+    color: #fff; 
+    text-decoration: none;
+   
+   }
+   .active{
+    color: #E17564;
+  }
+  }

@@ -1,0 +1,32 @@
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    font-family: "Noto Sans";
+  }
+
+  .mat-mdc-header-row {
+    font-family: "Noto sans";
+    font-weight: 700;
+  }
+  .mat-cell mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-cell span {
+    display: inline-block;
+    width: 100%;
+    text-align: center; /* Centra los valores cuando no estás editando */
+  }
+  
+  .mat-form-field {
+    display: block;
+    margin-right: 5px;
+  }
+.actions{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 10px;
+}
