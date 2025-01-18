@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace stockSystem.DataAccess.Models
 {
-
-        public class Rol
-        {
-            [Key]
-            public int id { get; set; }
-            [Required]
-            [MaxLength(50)]
-            public string name { get; set; }
-        }
+    public class Category
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }
     }
-
+}

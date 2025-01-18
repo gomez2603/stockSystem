@@ -50,7 +50,7 @@ namespace stockSystem.Controllers
         public IActionResult Add([FromBody] UserCreateDto user)
         {   
             var map = _mapper.Map<User>(user);
-            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);   
+            _authService.CreatePasswordHash(user.password, out byte[] passwordHash, out byte[] passwordSalt);   
             map.PasswordHash = passwordHash;
             map.PasswordSalt = passwordSalt;
             try
@@ -69,8 +69,8 @@ namespace stockSystem.Controllers
         [AllowAnonymous]
         public IActionResult login([FromBody] LoginDto user)
         {
-            var usertoLogin = _service.FindOne(x => x.Username == user.Username,"Rol");
-            if (_authService.VerifyPassword(user.Password, usertoLogin.PasswordHash, usertoLogin.PasswordSalt))
+            var usertoLogin = _service.FindOne(x => x.Username == user.username,"Rol");
+            if (_authService.VerifyPassword(user.password, usertoLogin.PasswordHash, usertoLogin.PasswordSalt))
             {
                 var response = _mapper.Map<userLoginResponse>(usertoLogin);
                 response.token = _authService.CreateToken(usertoLogin);
@@ -85,7 +85,7 @@ namespace stockSystem.Controllers
     public IActionResult update([FromBody] UserCreateDto user)
     {
             var  map = _mapper.Map<User>(user);
-            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            _authService.CreatePasswordHash(user.password, out byte[] passwordHash, out byte[] passwordSalt);
             map.PasswordHash = passwordHash;
             map.PasswordSalt = passwordSalt;
             try

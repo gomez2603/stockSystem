@@ -7,6 +7,12 @@ export interface Products{
     originalPrice?: number;     //
     image:string
     price: number
+    categoryId:number
+    categoryName:string
+    size:string
+    brand:string
+    model:string
+    barcode:string
     userId: number
     userName: string
 }

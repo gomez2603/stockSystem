@@ -12,21 +12,14 @@ import { Products } from '../../models/products';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ProductCreateUpdate } from '../../models/create-update-product';
-import { combineLatest } from 'rxjs';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @Component({
   selector: 'app-product-table',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatButtonModule, FormsModule, MatSnackBarModule,MatTooltipModule  ],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatButtonModule, FormsModule, MatSnackBarModule, MatTooltipModule, MatSelectModule,MatExpansionModule],
   templateUrl: './product-table.component.html',
   styleUrl: './product-table.component.css'
 })
@@ -34,7 +27,7 @@ export default class ProductTableComponent implements OnInit, AfterViewInit {
   private snackBar = inject(MatSnackBar);
   private readonly productService = inject(ProductService)
   readonly dialog = inject(MatDialog);
-  displayColums: string[] = ['Id', 'Nombre', 'Descripción', 'Cantidad', 'Precio', 'Creado Por', 'Imagen', 'Opciones']
+  displayColumns: string[] = ['Id', 'Nombre', 'Descripción', 'Cantidad', 'Precio', 'Talla', 'Modelo', 'Marca', 'Categoria', 'Código de Barras', 'Creado Por', 'Imagen', 'Opciones']
   dataSource = new MatTableDataSource<Products>();
   isEditingEnabled = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

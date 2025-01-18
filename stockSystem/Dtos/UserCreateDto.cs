@@ -4,11 +4,11 @@ namespace stockSystem.Dtos
 {
     public class UserCreateDto
     {
-        public int? Id { get; set; } = 0;
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Password { get; set; }
-        public string Username { get; set; }
-        public int RolId { get; set; }
+        public int? id { get; set; } = 0;
+        public string name { get; set; }
+        public string lastName { get; set; }
+        public string password { get; set; }
+        public string username { get; set; }
+        public int rolId { get; set; }
     }
 }

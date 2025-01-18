@@ -14,18 +14,25 @@ namespace StockSystem.dataAccess.Models
     {
 
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Required]
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
+        public int quantity { get; set; }
+        public decimal price { get; set; }
         [AllowNull]
-        public string? Image { get; set; }
+        public string? image { get; set; }
+        public string? size {  get; set; }
+        public int categoryId { get; set; }
+        public virtual Category? category { get; set; }
+        public string? brand { get; set; }
+        public string? model { get; set; }
+        public string? barcode {  get; set; }
         public int userId { get; set; }
+
         [ForeignKey("userId")]
         public virtual User? user { get; set; }
-        public virtual ICollection<SalesDetail> SalesDetails { get; set;}
+        public virtual ICollection<SalesDetail> salesDetails { get; set;}
 
     }   
 }

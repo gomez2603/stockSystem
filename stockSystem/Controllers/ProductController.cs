@@ -31,14 +31,14 @@ namespace stockSystem.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var map = this._mapper.Map<IEnumerable<ResponseProduct>>(_service.GetAll(null,"user",null));
+            var map = this._mapper.Map<IEnumerable<ResponseProduct>>(_service.GetAll(null,"user,category",null));
             return Ok(map);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var product = _service.FindOne(x=>x.Id == id,"user");
+            var product = _service.FindOne(x=>x.id == id, "user,category");
             
             if (product == null)
             {
@@ -58,12 +58,12 @@ namespace stockSystem.Controllers
             {
                 var uploadParams = new ImageUploadParams()
                 {
-                    File = new FileDescription(productDto.Name, productDto.file.OpenReadStream()),
+                    File = new FileDescription(productDto.name, productDto.file.OpenReadStream()),
                     AssetFolder = "Products"
 
                 };
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                data.Image = uploadResult.SecureUrl.ToString();
+                data.image = uploadResult.SecureUrl.ToString();
             }
             
             _service.Add(data);
@@ -78,12 +78,12 @@ namespace stockSystem.Controllers
             {
                 var uploadParams = new ImageUploadParams()
                 {
-                    File = new FileDescription(productDto.Name, productDto.file.OpenReadStream()),
+                    File = new FileDescription(productDto.name, productDto.file.OpenReadStream()),
                     AssetFolder = "Products"
 
                 };
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                data.Image = uploadResult.SecureUrl.ToString();
+                data.image = uploadResult.SecureUrl.ToString();
             }
             _service.Update(data);
             return Created("", data);

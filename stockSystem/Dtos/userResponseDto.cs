@@ -6,14 +6,14 @@ namespace stockSystem.Dtos
 {
     public class userResponseDto
     {
-        public int Id { get; set; }
+        public int id { get; set; }
     
-        public string Name { get; set; }
+        public string name { get; set; }
     
-        public string LastName { get; set; }
+        public string lastName { get; set; }
 
-        public string Username { get; set; }
-        public int RolId { get; set; }
-        public string RolNombre { get; set; }
+        public string username { get; set; }
+        public int rolId { get; set; }
+        public string rolNombre { get; set; }
     }
 }

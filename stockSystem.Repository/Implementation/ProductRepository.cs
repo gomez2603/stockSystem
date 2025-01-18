@@ -20,14 +20,14 @@ namespace stockSystem.Repository.Implementation
 
         public void Update(Product product)
         {
-            var update = _context.Products.FirstOrDefault(x=>x.Id == product.Id);
+            var update = _context.Products.FirstOrDefault(x=>x.id == product.id);
             if (update != null) {
             
-                update.Name = product.Name;
-                update.Description = product.Description;
-                update.Quantity = product.Quantity;
-                update.Price = product.Price;
-                update.Image = product.Image;
+                update.name = product.name;
+                update.description = product.description;
+                update.quantity = product.quantity;
+                update.price = product.price;
+                update.image = product.image;
                 _context.Products.Update(update);
             }
 

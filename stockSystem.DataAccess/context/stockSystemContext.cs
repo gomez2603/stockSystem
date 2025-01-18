@@ -19,6 +19,8 @@ namespace StockSystem.dataAccess.context
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SalesDetail> SalesDetail { get; set; }
         public DbSet<Rol> Rols { get; set; }
+        public DbSet<Category> Category { get; set; }
+
         public stockSystemContext(DbContextOptions<stockSystemContext> options) : base(options)
         {
 
@@ -47,24 +49,24 @@ namespace StockSystem.dataAccess.context
         {
             builder.ApplyConfiguration(new RolSeed());
             builder.ApplyConfiguration(new userSeed());
-
+            builder.ApplyConfiguration(new CategorySeed());
             builder.Entity<User>()
             .HasIndex(u => u.Username)
             .IsUnique();
 
             builder.Entity<SalesDetail>()
-                .HasKey(sd => new {sd.SalesId, sd.ProductId});
+                .HasKey(sd => new {sd.salesId, sd.productId});
 
             builder.Entity<SalesDetail>()
-                .HasOne(s => s.Sales).
-                WithMany(sd => sd.SalesDetails)
-                .HasForeignKey(sd => sd.SalesId)
+                .HasOne(s => s.sales).
+                WithMany(sd => sd.salesDetails)
+                .HasForeignKey(sd => sd.salesId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<SalesDetail>()
-              .HasOne(p => p.Products).
-              WithMany(sd => sd.SalesDetails)
-              .HasForeignKey(sd => sd.ProductId)
+              .HasOne(p => p.products).
+              WithMany(sd => sd.salesDetails)
+              .HasForeignKey(sd => sd.productId)
                .OnDelete(DeleteBehavior.NoAction); 
 
             builder.Entity<SalesDetail>().ToTable("SalesDetails");

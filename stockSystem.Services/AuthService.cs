@@ -37,7 +37,7 @@ namespace stockSystem.Services
                 new Claim(ClaimTypes.Name,user.Name),
                 new Claim(ClaimTypes.UserData,user.Username),
                    new Claim("id",user.Id.ToString()),
-               new Claim(ClaimTypes.Role,user.Rol.Nombre)
+               new Claim(ClaimTypes.Role,user.Rol.name)
 
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
