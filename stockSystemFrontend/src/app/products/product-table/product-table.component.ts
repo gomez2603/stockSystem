@@ -16,10 +16,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @Component({
   selector: 'app-product-table',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatButtonModule, FormsModule, MatSnackBarModule, MatTooltipModule, MatSelectModule,MatExpansionModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatButtonModule, FormsModule, MatSnackBarModule, MatTooltipModule, MatSelectModule,MatExpansionModule,MatMenuModule,MatCheckboxModule],
   templateUrl: './product-table.component.html',
   styleUrl: './product-table.component.css'
 })
@@ -27,7 +28,23 @@ export default class ProductTableComponent implements OnInit, AfterViewInit {
   private snackBar = inject(MatSnackBar);
   private readonly productService = inject(ProductService)
   readonly dialog = inject(MatDialog);
-  displayColumns: string[] = ['Id', 'Nombre', 'Descripción', 'Cantidad', 'Precio', 'Talla', 'Modelo', 'Marca', 'Categoria', 'Código de Barras', 'Creado Por', 'Imagen', 'Opciones']
+  displayColumns: string[] =[]
+
+  allColumns = [
+    { id: 'Id', name: 'No.', visible: false },
+    { id: 'Nombre', name: 'Nombre', visible: true },
+    { id: 'Descripción', name: 'Descripción', visible: true },
+    { id: 'Cantidad', name: 'Cantidad', visible: true },
+    { id: 'Precio', name: 'Precio', visible: true },
+    { id: 'Talla', name: 'Talla', visible: false },
+    { id: 'Modelo', name: 'Modelo', visible: false },
+    { id: 'Marca', name: 'Marca', visible: false },
+    { id: 'Categoria', name: 'Categoría', visible: false},
+    { id: 'Código de Barras', name: 'Código de Barras', visible: false },
+    { id: 'Creado Por', name: 'Creado Por', visible: false },
+    { id: 'Imagen', name: 'Imagen', visible: true },
+    { id: 'Opciones', name: 'Opciones', visible: true }
+  ];
   dataSource = new MatTableDataSource<Products>();
   isEditingEnabled = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,10 +54,10 @@ export default class ProductTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadProducts();
-
+    this.setDisplayColumns()
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;   
     this.dataSource.sort = this.sort
 
   }
@@ -85,7 +102,8 @@ export default class ProductTableComponent implements OnInit, AfterViewInit {
 
   openCreateProductDialog(): void {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
-      width: '800px',
+      width: '80%',
+      maxWidth:'600px',
       data: { product: null }
     });
 
@@ -95,11 +113,21 @@ export default class ProductTableComponent implements OnInit, AfterViewInit {
   openEditProductDialog(product: Products): void {
     console.log("data", product)
     const dialogRef = this.dialog.open(ProductDialogComponent, {
-      width: '800px',
+      width: '80%',
+      maxWidth:'600px',
       height: 'auto',
       data: { product }
     });
 
+    
 
+
+  }
+
+
+  setDisplayColumns() {
+    this.displayColumns = this.allColumns
+      .filter((column) => column.visible) // Asegúrate de que `visible` sea boolean
+      .map((column) => column.id); // Asegúrate de que `id` sea un string válido
   }
 }
