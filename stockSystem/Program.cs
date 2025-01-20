@@ -59,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 
 string policy = "MyPolicy";
-var allowedOrigins = new[] { "http://localhost", "http://localhost:80" };
+var allowedOrigins = new[] { "http://localhost", "http://localhost:80", "http://52.33.46.80", "http://52.33.46.80:80" };
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policy, builder =>
