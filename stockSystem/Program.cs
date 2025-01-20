@@ -59,11 +59,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 
 string policy = "MyPolicy";
-
+var allowedOrigins = new[] { "http://localhost", "http://localhost:80" };
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policy, builder =>
-        builder.WithOrigins("http://localhost:4200", "http://52.33.46.80") // Agrega los orígenes permitidos
+        builder.WithOrigins(allowedOrigins) // Agrega los orígenes permitidos
                .AllowAnyHeader()
                .AllowAnyMethod());
 });
