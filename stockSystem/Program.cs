@@ -60,13 +60,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 string policy = "MyPolicy";
 
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policy, builder =>
-      builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
-      .AllowAnyHeader().AllowAnyMethod());
-
+        builder.WithOrigins("http://localhost:4200", "http://52.33.46.80") // Agrega los orígenes permitidos
+               .AllowAnyHeader()
+               .AllowAnyMethod());
 });
 
 var cloudinaryConfig = builder.Configuration.GetSection("Cloudinary");
