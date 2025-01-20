@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from '../../products.service';
+import { ProductService } from '../../services/products.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';

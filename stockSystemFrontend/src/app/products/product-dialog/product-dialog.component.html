@@ -2,18 +2,18 @@
 <mat-dialog-content>
 
   <h1 mat-dialog-title>{{title}}</h1>
-  <form style="width: 100%;" class="stackForm" [formGroup]="productForm" (ngSubmit)="saveProduct()">
+  <form style="width: 100%;" class="stackForm" [formGroup]="productForm" >
     <diV class="block">
         <mat-form-field appearance="outline">
             <mat-label>Nombre</mat-label>
-            <input type="text" formControlName="Name" name="Name" matInput placeholder="Nombre" >
+            <input type="text" formControlName="name" name="name" matInput placeholder="Nombre" >
           
         </mat-form-field>
     
     
         <mat-form-field appearance="outline">
             <mat-label>Descripción</mat-label>
-            <input type="text" formControlName="Description" name="Description" matInput placeholder="Descripción" >
+            <input type="text" formControlName="description" name="description" matInput placeholder="Descripción" >
          
         </mat-form-field>
      
@@ -21,17 +21,57 @@
     <div class="block">
         <mat-form-field appearance="outline">
             <mat-label>Cantidad</mat-label>
-            <input type="number" formControlName="Quantity" matInput placeholder="Cantidad" >
+            <input type="number" formControlName="quantity" matInput placeholder="Cantidad" >
          
         </mat-form-field>
     
         <mat-form-field appearance="outline">
             <mat-label>Precio</mat-label>
-            <input type="number" formControlName="Price" matInput placeholder="Precio" >
+            <input type="number" formControlName="price" matInput placeholder="Precio" >
         
         
         </mat-form-field>
     </div>
+
+
+    <diV class="block">
+        <mat-form-field appearance="outline">
+            <mat-label>Talla</mat-label>
+            <input type="text" formControlName="size" name="size" matInput placeholder="Talla" >
+          
+        </mat-form-field>
+    
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Marca</mat-label>
+            <input type="text" formControlName="brand" name="brand" matInput placeholder="Marca" >
+         
+        </mat-form-field>
+    </diV>
+    <diV class="block">
+        <mat-form-field appearance="outline">
+            <mat-label>Modelo</mat-label>
+            <input type="text" formControlName="model" name="model" matInput placeholder="model" >
+          
+        </mat-form-field>
+
+<mat-form-field>
+  <mat-label>Categoria</mat-label>
+  <mat-select   value="2">
+    <mat-option  *ngFor="let category of categories$|async" [value]="category.id">{{category.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+    
+       
+     
+    </diV>
+    <mat-form-field appearance="outline">
+        <mat-label>Codigo de Barras</mat-label>
+        <input type="text" formControlName="barcode" name="barcode" matInput placeholder="Descripción" >
+     
+    </mat-form-field>
         <div class="container" >
             <input type="file"  accept="image/png, image/gif, image/jpeg, image/jpg"  id="fileDropRef" multiple (change)="onFileChange($event)" />
             <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64">
@@ -59,11 +99,12 @@
         </div>
       
        
-                <mat-dialog-actions>
-            <button mat-button (click)="onNoClick()">Cancelar</button>
-            <button mat-button color="primary" type="submit" [disabled]="!productForm.valid">Guardar</button>
-          </mat-dialog-actions>
+              
           
     </form>
+    <mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button color="primary"  (click)="saveProduct()" [disabled]="!productForm.valid">Guardar</button>
+      </mat-dialog-actions>
 </mat-dialog-content>
 

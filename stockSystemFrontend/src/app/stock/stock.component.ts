@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../products.service';
+import { ProductService } from '../services/products.service';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 

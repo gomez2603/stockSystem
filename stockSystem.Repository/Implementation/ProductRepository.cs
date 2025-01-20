@@ -28,6 +28,12 @@ namespace stockSystem.Repository.Implementation
                 update.quantity = product.quantity;
                 update.price = product.price;
                 update.image = product.image;
+                update.category = product.category;
+                update.barcode = product.barcode;
+                update.categoryId = product.categoryId;
+                update.size = product.size;
+                update.model = product.model;
+                update.brand = product.brand;
                 _context.Products.Update(update);
             }
 

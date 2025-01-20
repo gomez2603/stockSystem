@@ -8,6 +8,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,8 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProductCreateUpdate } from '../../models/create-update-product';
 import { CommonModule } from '@angular/common';
 import { Products } from '../../models/products';
-import { ProductService } from '../../products.service';
+import { ProductService } from '../../services/products.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CategoryService } from '../../services/category.service';
 
  // Modelo de datos para crear/actualizar
 
@@ -31,12 +33,15 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogTitle,
     MatDialogContent,
     MatSnackBarModule,
+    MatSelectModule,
     MatDialogActions],
   templateUrl: './product-dialog.component.html',
   styleUrl: './product-dialog.component.css'
 })
 export class ProductDialogComponent implements OnInit {
 private readonly productService = inject(ProductService)
+private readonly categoryService = inject(CategoryService)
+categories$ = this.categoryService.getCategories()
 private snackBar = inject(MatSnackBar);
   productForm: FormGroup;
   file: File | null = null;
@@ -50,25 +55,38 @@ private snackBar = inject(MatSnackBar);
   ) {
     this.productForm = this.fb.group({
       id: [0],
-      Name: ['', Validators.required],
-      Description: ['', Validators.required],
-      Quantity: [0, Validators.required],
-      Price: [0, Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      quantity: [0, Validators.required],
+      price: [0, Validators.required],
       userId: [1, Validators.required],
+      size:[null],
+      brand:[null],
+      model:[null],
+      categoryId:[0,[Validators.required,Validators.min(1)]],
+      barcode:[null],
       file: [null],
     });
     
   }
   ngOnInit(): void {
+
     if (this.dataIncome?.product) {
       // Establece manualmente cada valor del formulario
       this.productForm.patchValue({
         id: this.dataIncome.product.id || 0,
-        Name: this.dataIncome.product.name || '',
-        Description: this.dataIncome.product.description || '',
-        Quantity: this.dataIncome.product.quantity || 0,
-        Price: this.dataIncome.product.price || 0,
+        name: this.dataIncome.product.name || '',
+        description: this.dataIncome.product.description || '',
+        quantity: this.dataIncome.product.quantity || 0,
+        price: this.dataIncome.product.price || 0,
         userId: this.dataIncome.product.userId || 1,
+        size:this.dataIncome.product.size ||'',
+        barcode:this.dataIncome.product.barcode ||'',
+        brand:this.dataIncome.product.brand ||'',
+        model:this.dataIncome.product.model ||'',
+        categoryId:this.dataIncome.product.categoryId || 0,
+        
+
       });
       this.preview = this.dataIncome.product.image || null;
       if (this.dataIncome?.product?.id) {
@@ -77,6 +95,8 @@ private snackBar = inject(MatSnackBar);
     }
   }
 
+
+  
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -95,6 +115,7 @@ private snackBar = inject(MatSnackBar);
 
   // Cerrar el modal sin guardar
   onNoClick(): void {
+    console.log("no hicee nada")
     this.dialogRef.close();
   }
 
@@ -106,17 +127,22 @@ private snackBar = inject(MatSnackBar);
       if(this.productForm.value.id >0){
         formData.append('id', this.productForm.value.id)
       }
-      formData.append('Name', this.productForm.value.Name)
-      formData.append('Description', this.productForm.value.Description)
-      formData.append('Quantity', this.productForm.value.Quantity+"")
-      formData.append('Price', this.productForm.value.Price+"")
+      formData.append('name', this.productForm.value.name)
+      formData.append('description', this.productForm.value.description)
+      formData.append('quantity', this.productForm.value.quantity+"")
+      formData.append('price', this.productForm.value.price+"")
       formData.append('userId',this.productForm.value.userId+"" )
+      formData.append('categoryId',this.productForm.value.categoryId+"" )
+      formData.append('size',this.productForm.value.size)
+      formData.append('brand',this.productForm.value.brand )
+      formData.append('model',this.productForm.value.model)
+      formData.append('barcode',this.productForm.value.barcode)
       if (this.file) {
         console.log(this.file)
         formData.append('file', this.file, this.file.name); // Agrega el archivo si se seleccionó uno
       }
       else{
-        formData.append('Image',this.dataIncome.product.image )
+        formData.append('image',this.dataIncome.product.image )
       }
       if(this.productForm.value.id > 0 ){
         this.productService.updateProduct(formData).subscribe(
