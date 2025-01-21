@@ -65,11 +65,15 @@ namespace stockSystem.Controllers
             }
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult login([FromBody] LoginDto user)
         {
             var usertoLogin = _service.FindOne(x => x.Username == user.username,"Rol");
+            if(usertoLogin == null)
+            {
+                return NotFound();
+            }
             if (_authService.VerifyPassword(user.password, usertoLogin.PasswordHash, usertoLogin.PasswordSalt))
             {
                 var response = _mapper.Map<userLoginResponse>(usertoLogin);

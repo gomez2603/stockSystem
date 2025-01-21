@@ -8,10 +8,12 @@ using AutoMapper;
 using System.Text;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace stockSystem.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -89,7 +91,7 @@ namespace stockSystem.Controllers
             return Created("", data);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _service.Remove(id);

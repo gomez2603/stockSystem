@@ -40,4 +40,9 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  isLogged(): boolean {
+    const token = this.getToken();
+    return !!token; // Retorna true si el token existe, de lo contrario, false
+  }
 }

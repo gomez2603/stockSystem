@@ -4,6 +4,7 @@
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+    gap: 2em;
   }
   
   .login-form {
@@ -13,8 +14,9 @@
   
   mat-card {
     padding: 2rem;
+    gap:2em
   }
-  
+
   .form-field {
     width: 100%;
   }
