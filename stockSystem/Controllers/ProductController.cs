@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace stockSystem.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "ADMIN,STOCKER")]
     [ApiController]
     public class ProductController : ControllerBase
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using stockSystem.Dtos;
 using stockSystem.Services.Interfaces;
@@ -6,6 +7,7 @@ using stockSystem.Services.Interfaces;
 namespace stockSystem.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "ADMIN,STOCKER")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -20,7 +22,7 @@ namespace stockSystem.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            
+
             return Ok(_service.GetAll());
         }
     }
