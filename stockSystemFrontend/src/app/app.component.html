@@ -1,8 +1,8 @@
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
+  <mat-drawer #drawer class="example-sidenav" mode="side" (opened)="setDrawer(drawer)">
     <img src="img/logo.svg" class="sidenav-logo">
     <ul class="sidenav-list">
-      <li><a routerLink="products" routerLinkActive="active">
+      <li><a routerLink="products" routerLinkActive="active" >
           <div class="sidenav">
             <mat-icon>category</mat-icon>
             <p>Productos</p>

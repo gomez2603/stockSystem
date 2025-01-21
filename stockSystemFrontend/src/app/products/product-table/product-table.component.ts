@@ -21,6 +21,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 @Component({
   selector: 'app-product-table',
   imports: [CommonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatButtonModule, FormsModule, MatSnackBarModule, MatTooltipModule, MatSelectModule,MatExpansionModule,MatMenuModule,MatCheckboxModule],
+  
   templateUrl: './product-table.component.html',
   styleUrl: './product-table.component.css'
 })
