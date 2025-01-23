@@ -14,7 +14,7 @@ namespace stockSystem.Dtos
         public string? image { get; set; }
         public decimal price { get; set; }
 
-        public int userId { get; set; }
+       
         public int categoryId { get; set; }
         public string? size { get; set; }
         public string? brand { get; set; }

@@ -12,6 +12,7 @@ namespace stockSystem.Repository.Interfaces
         IProductRepository productRepository { get; }
 
         ICategoryRespository categoryRepository { get; }
+        ISalesRepository salesRespository {  get; }
         void Save();
     }
 }

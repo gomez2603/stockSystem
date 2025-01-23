@@ -8,6 +8,7 @@ using stockSystem.Services.Interfaces;
 using StockSystem.dataAccess.context;
 using StockSystem.dataAccess.Models;
 using System.Runtime.Intrinsics.X86;
+using System.Security.Claims;
 
 namespace stockSystem.Controllers
 {
@@ -53,6 +54,7 @@ namespace stockSystem.Controllers
             _authService.CreatePasswordHash(user.password, out byte[] passwordHash, out byte[] passwordSalt);   
             map.PasswordHash = passwordHash;
             map.PasswordSalt = passwordSalt;
+         
             try
             {
                 _service.Add(map);

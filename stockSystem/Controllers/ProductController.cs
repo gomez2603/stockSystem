@@ -9,6 +9,7 @@ using System.Text;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace stockSystem.Controllers
 {
@@ -55,7 +56,11 @@ namespace stockSystem.Controllers
         {
 
 
+
             var data = this._mapper.Map<Product>(productDto);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var userId = int.Parse(userIdClaim.Value);
+            data.userId = userId;
             if (productDto.file != null)
             {
                 var uploadParams = new ImageUploadParams()

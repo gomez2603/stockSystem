@@ -15,6 +15,7 @@ namespace stockSystem.Repository.Implementation
         public IProductRepository productRepository { get; private set; }
 
         public ICategoryRespository categoryRepository { get; private set; }   
+        public ISalesRepository salesRespository { get; private set; }
 
         public UnitOfWork(stockSystemContext context)
         {
@@ -22,6 +23,7 @@ namespace stockSystem.Repository.Implementation
             userRepository = new UserRepository(context);
             productRepository = new ProductRepository(context);
             categoryRepository = new categoryRepository(context);
+            salesRespository = new SalesRespository(context);
 
         }
 
