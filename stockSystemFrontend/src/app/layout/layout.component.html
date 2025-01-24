@@ -2,30 +2,33 @@
     <mat-drawer #drawer class="example-sidenav" mode="side" (opened)="setDrawer(drawer)">
       <img src="img/logo.svg" class="sidenav-logo">
       <ul class="sidenav-list">
+
+
+        <li><a routerLink="" routerLinkActive="active">
+          <div class="sidenav">
+            <mat-icon>point_of_sale</mat-icon>
+            <p>Ventas</p>
+          </div>
+        </a></li>
         <li><a routerLink="products" routerLinkActive="active" >
             <div class="sidenav">
               <mat-icon>category</mat-icon>
               <p>Productos</p>
             </div>
           </a></li>
-        <li><a href="#">
+        <li><a >
             <div class="sidenav">
               <mat-icon>people</mat-icon>
               <p>Usuarios</p>
             </div>
           </a></li>
-        <li><a href="#">
+        <li><a >
             <div class="sidenav">
               <mat-icon>inventory</mat-icon>
               <p>Inventario</p>
             </div>
           </a></li>
-        <li><a href="#">
-            <div class="sidenav">
-              <mat-icon>point_of_sale</mat-icon>
-              <p>Ventas</p>
-            </div>
-          </a></li>
+      
       </ul>
     </mat-drawer>
   
