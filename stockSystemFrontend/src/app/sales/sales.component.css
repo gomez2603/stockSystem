@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+  height: calc(100vh - 64px);
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -36,6 +36,7 @@
   margin: 16px;
   justify-items: center; /* Centra las tarjetas en cada columna */
   box-sizing: border-box;
+  overflow: visible;
 }
 
 /* Ajustes para diferentes tamaños de pantalla */
@@ -70,6 +71,7 @@
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .product-item {
