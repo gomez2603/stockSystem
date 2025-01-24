@@ -1,0 +1,61 @@
+<div class="container">
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar productos</mat-label>
+      <input
+        matInput
+        [formControl]="productControl"
+        placeholder="Nombre del producto"
+      />
+    </mat-form-field>
+  </div>
+
+  <!-- Contenido principal -->
+
+  <div class="stockContainer">
+    <mat-card *ngFor="let product of filteredProducts | async" class="example-card" appearance="outlined"  (click)="addProduct(product)">
+      <mat-card-header>
+        <img mat-card-image src="{{product.image}}"  alt="Photo of a Shiba Inu">
+      </mat-card-header>
+  
+      <mat-card-content>
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <p class="product-description">
+          {{product.description}}
+        </p>
+  
+        <p class="product-price">${{product.price}}</p>
+      </mat-card-content>
+  
+      <mat-card-footer>
+        <button mat-mini-fab class="add-to-cart-btn">
+          Añadir al carrito
+        </button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+    <div class="selected-products">
+      <div class="product-item" *ngFor="let item of selectedProducts">
+        <img [src]="item.image" width="75px" alt="{{ item.name }}" />
+        <div>{{ item.name }}</div>
+        <div>Cantidad: {{ item.quantity }}</div>
+        <div>Precio: {{ item.price | currency }}</div>
+        <button
+          mat-button
+          color="warn"
+          (click)="removeProduct(item)"
+        >
+          Eliminar
+        </button>
+      </div>
+      <div class="summary">
+        <h3>Total: {{ total | currency }}</h3>
+        <button mat-raised-button color="primary" (click)="checkout()">
+          Vender
+        </button>
+      </div>
+    </div>
+
+  </div>

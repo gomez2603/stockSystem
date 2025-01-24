@@ -43,18 +43,18 @@ namespace stockSystem.Controllers
                 saleEntity.salesBy = userId;
 
                 // Validar y crear la venta
-                var isValid =  _salesService.ValidateTotalAsync(saleEntity);
+                var isValid =  _salesService.ValidateTotal(saleEntity) &&  _salesService.ValidateStock(saleEntity);
                 if (isValid)
                 {
                     _salesService.Add(saleEntity);
-                    return Ok("Venta creada exitosamente.");
+                    return Ok(new { status="Venta Creada" });
                 }
 
-                return BadRequest("No se pudo crear la venta");
+                return BadRequest(new { status = "No se pudo crear la venta" });
             }
             catch (Exception ex)
             {
-                return BadRequest("No se pudo crear la venta");
+                return BadRequest(new { status = "No se pudo crear la venta" }  );
             }
         }
     }

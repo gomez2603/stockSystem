@@ -67,7 +67,7 @@ namespace stockSystem.Services
             _unitOfWork.Save();
         }
 
-        public bool ValidateTotalAsync(Sales sales)
+        public bool ValidateTotal(Sales sales)
         {
             var calculatedTotal = 0m;
 
@@ -83,6 +83,25 @@ namespace stockSystem.Services
             }
 
             return sales.total == calculatedTotal;
+        }
+
+        public bool ValidateStock(Sales sales)
+        {
+            foreach (var detail in sales.salesDetails)
+            {
+                var product =  _unitOfWork.productRepository.FindOne(x=>x.id  == detail.productId);
+                if (product != null)
+                {
+                    product.quantity -= detail.quantity;
+                    if (product.quantity < 0)
+                    {
+                        return false;   
+                    }
+                    _unitOfWork.productRepository.Update(product);
+                }
+            }
+            return true;
+
         }
     }
 }

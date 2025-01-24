@@ -28,6 +28,7 @@ namespace stockSystem.Services.Interfaces
         void RemoveRange(IEnumerable<Sales> entidad);
 
 
-        bool ValidateTotalAsync(Sales sales);
+        bool ValidateTotal(Sales sales);
+        bool ValidateStock(Sales sales);
     }
 }
