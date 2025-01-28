@@ -44,7 +44,7 @@
   /* L (grande): 3 columnas */
   .stockContainer {
     grid-template-columns: repeat(3, 1fr);
-    overflow: scroll;
+    overflow: auto;
   }
 }
 

@@ -7,10 +7,11 @@ import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet, RouterLink, RouterLinkActive, RouterModule, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ShowForRolesDirective } from '../directives/show-for-roles.directive';
 
 @Component({
   selector: 'app-layout',
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, RouterOutlet, RouterLink, RouterLinkActive,RouterModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, RouterOutlet, RouterLink, RouterLinkActive,RouterModule,ShowForRolesDirective],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

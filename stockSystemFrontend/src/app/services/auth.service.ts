@@ -13,6 +13,18 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentUser: Observable<any> = this.currentUserSubject.asObservable();
 
+
+  constructor() {
+    // Verificar si existe un token y un usuario guardado en localStorage
+
+    const savedToken = localStorage.getItem('token');
+    
+    if ( savedToken) {
+      const decodedUser = this.decodeToken(savedToken);
+      this.currentUserSubject.next(decodedUser);
+    }
+  }
+
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http
       .post<any>(this.apiUrl+'/login', credentials, {
@@ -28,7 +40,7 @@ export class AuthService {
   saveUserSession(response: any): void {
     localStorage.setItem('token', response.token);
     const decodedToken = this.decodeToken(response.token);
-
+  
     // Actualizar el BehaviorSubject con los datos decodificados del token
     this.currentUserSubject.next(decodedToken);
   }
@@ -45,9 +57,10 @@ export class AuthService {
 
   isLogged(): boolean {
     const currentUser = this.currentUserSubject.value;
-
+    console.log(this.currentUserSubject.value)
     // Verificar si el currentUser y la fecha de expiración están disponibles
     if (!currentUser || !currentUser.exp) {
+      console.log("Fuera")
       return false; // Si no hay usuario o la fecha de expiración no está presente, el usuario no está logueado
     }
 
@@ -56,6 +69,7 @@ export class AuthService {
 
     // Verificar si el token ha expirado
     if (currentUser.exp <= currentTime) {
+      console.log("Token Expirado",currentTime)
       this.logout(); // Si el token ha expirado, cerrar sesión
       return false;
     }

@@ -4,25 +4,25 @@
       <ul class="sidenav-list">
 
 
-        <li><a routerLink="" routerLinkActive="active">
+        <li *appShowForRoles="['ADMIN','SALESMAN','STOCKER']"><a routerLink="" routerLinkActive="active">
           <div class="sidenav">
             <mat-icon>point_of_sale</mat-icon>
             <p>Ventas</p>
           </div>
         </a></li>
-        <li><a routerLink="products" routerLinkActive="active" >
+        <li *appShowForRoles="['ADMIN','STOCKER']"><a routerLink="products" routerLinkActive="active" >
             <div class="sidenav">
               <mat-icon>category</mat-icon>
               <p>Productos</p>
             </div>
           </a></li>
-        <li><a >
+        <li *appShowForRoles="['STOCKER']"><a >
             <div class="sidenav">
               <mat-icon>people</mat-icon>
               <p>Usuarios</p>
             </div>
           </a></li>
-        <li><a >
+        <li *appShowForRoles="['SALESMAN']"><a >
             <div class="sidenav">
               <mat-icon>inventory</mat-icon>
               <p>Inventario</p>
