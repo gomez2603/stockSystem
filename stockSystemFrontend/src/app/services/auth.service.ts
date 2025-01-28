@@ -26,9 +26,11 @@ export class AuthService {
   }
 
   saveUserSession(response: any): void {
-    localStorage.setItem('user', JSON.stringify(response));
     localStorage.setItem('token', response.token);
-    this.currentUserSubject.next(response);
+    const decodedToken = this.decodeToken(response.token);
+
+    // Actualizar el BehaviorSubject con los datos decodificados del token
+    this.currentUserSubject.next(decodedToken);
   }
 
   logout(): void {
@@ -42,7 +44,45 @@ export class AuthService {
   }
 
   isLogged(): boolean {
-    const token = this.getToken();
-    return !!token; // Retorna true si el token existe, de lo contrario, false
+    const currentUser = this.currentUserSubject.value;
+
+    // Verificar si el currentUser y la fecha de expiración están disponibles
+    if (!currentUser || !currentUser.exp) {
+      return false; // Si no hay usuario o la fecha de expiración no está presente, el usuario no está logueado
+    }
+
+    // Obtener el tiempo actual en segundos
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    // Verificar si el token ha expirado
+    if (currentUser.exp <= currentTime) {
+      this.logout(); // Si el token ha expirado, cerrar sesión
+      return false;
+    }
+
+    return true;
+  }
+
+  getRoles(): string[] {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.roles ? [currentUser.roles] : []; // Devuelve un array con los roles del usuario
+  }
+
+  hasRole(role: string): boolean {
+    const roles = this.getRoles();
+    return roles.includes(role); // Verifica si el usuario tiene el rol especificado
+  }
+
+
+  private decodeToken(token: string): any {
+    try {
+      // Dividir el token en sus tres partes (Header, Payload, Signature)
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload); // Decodificar el payload de Base64
+      return JSON.parse(decodedPayload); // Parsear el payload a un objeto
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
   }
 }

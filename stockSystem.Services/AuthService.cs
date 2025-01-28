@@ -34,10 +34,10 @@ namespace stockSystem.Services
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,user.Name),
-                new Claim(ClaimTypes.UserData,user.Username),
-                   new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-               new Claim(ClaimTypes.Role,user.Rol.name)
+                new Claim("name",user.Name),
+                new Claim("userName",user.Username),
+                   new Claim("id",user.Id.ToString()),
+               new Claim("roles", string.Join(",", new[] { user.Rol.name }))
 
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

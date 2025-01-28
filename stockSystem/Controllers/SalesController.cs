@@ -31,7 +31,7 @@ namespace stockSystem.Controllers
             try
             {
                 // Obtener el userId del token
-                var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
                 if (userIdClaim == null)
                 {
                     return Unauthorized("No se pudo obtener el ID del usuario del token.");

@@ -58,7 +58,7 @@ namespace stockSystem.Controllers
 
 
             var data = this._mapper.Map<Product>(productDto);
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "id");
             var userId = int.Parse(userIdClaim.Value);
             data.userId = userId;
             if (productDto.file != null)
