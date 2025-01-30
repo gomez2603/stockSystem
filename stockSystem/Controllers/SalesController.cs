@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using stockSystem.DataAccess.Models;
 using stockSystem.Dtos;
 using stockSystem.Services;
 using stockSystem.Services.Interfaces;
+using StockSystem.dataAccess.context;
 using System.Security.Claims;
 
 namespace stockSystem.Controllers
@@ -17,14 +19,24 @@ namespace stockSystem.Controllers
     {
         private readonly ISalesService _salesService;
         private readonly IMapper _mapper;
+        private readonly stockSystemContext _context;
 
-        public SalesController(ISalesService salesService,IMapper mapper)
+        public SalesController(ISalesService salesService,IMapper mapper,stockSystemContext  context)
         {
             _salesService = salesService;
             _mapper = mapper;
+            _context = context;
         }
 
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var data = _context.Sales.Include(x=>x.salesDetails).ThenInclude(x=>x.products).Include(x=>x.user).ToList();
+            var map = _mapper.Map<List<SalesResponseDto>>(data);
+
+            return Ok(map);
+        }
         [HttpPost]
         public  IActionResult CreateSale([FromBody] SalesDto salesDto)
         {
