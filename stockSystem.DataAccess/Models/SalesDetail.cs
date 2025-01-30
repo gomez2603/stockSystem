@@ -1,4 +1,5 @@
 ﻿using StockSystem.dataAccess.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace stockSystem.DataAccess.Models
 {
@@ -8,7 +9,8 @@ namespace stockSystem.DataAccess.Models
         public Sales sales { get; set; }
         public int productId { get; set; }  
         public Product products { get; set; }
-        public int quantity { get; set; }
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal quantity { get; set; }
 
     }
 }

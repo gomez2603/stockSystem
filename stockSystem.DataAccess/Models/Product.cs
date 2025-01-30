@@ -18,7 +18,9 @@ namespace StockSystem.dataAccess.Models
         [Required]
         public string name { get; set; } = string.Empty;
         public string description { get; set; } = string.Empty;
-        public int quantity { get; set; }
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal quantity { get; set; }
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal price { get; set; }
         [AllowNull]
         public string? image { get; set; }

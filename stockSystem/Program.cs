@@ -78,14 +78,22 @@ var cloudinary = new Cloudinary(new Account(
     ));
 
 builder.Services.AddSingleton(cloudinary);
+
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<stockSystemContext>();
+    dbContext.Database.Migrate();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(); 
 }
+
+
 
 
 app.UseAuthentication();

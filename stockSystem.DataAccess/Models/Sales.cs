@@ -15,6 +15,7 @@ namespace stockSystem.DataAccess.Models
         [ForeignKey("salesBy")]
         public virtual User ? user { get; set; }
         public DateTime created_at {  get; set; }   = DateTime.Now;
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal total { get; set; }
         public virtual ICollection<SalesDetail>? salesDetails { get; set;}
     }
