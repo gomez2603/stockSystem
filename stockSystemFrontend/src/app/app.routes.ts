@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { SalesComponent } from './sales/sales.component';
 import { roleguardGuard } from './guards/roleguard.guard';
+import { SalesDetailsComponent } from './sales-details/sales-details.component';
 
 
 export const routes: Routes = [
@@ -13,7 +14,10 @@ export const routes: Routes = [
             { path: '', component: SalesComponent }, // Ruta por defecto
             { path: 'products',
                 canActivate: [roleguardGuard(['ADMIN', 'STOCKER'])],
-                 loadChildren: () => import('./products/products.routes') }
+                 loadChildren: () => import('./products/products.routes') },
+                 {path:'sales',canActivate: [roleguardGuard(['ADMIN','SALESMAN'])],component:SalesDetailsComponent
+                    
+                 }
           ]
 
     },

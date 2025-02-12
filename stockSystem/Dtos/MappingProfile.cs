@@ -31,7 +31,8 @@ namespace stockSystem.Dtos
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.quantity))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.products.id))
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.products.name))
-                .ForMember(dest => dest.ProductPrice, opt => opt.MapFrom(src => src.products.price));
+                .ForMember(dest => dest.ProductPrice, opt => opt.MapFrom(src => src.products.price))
+                  .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.products.image));
         }
     }
 }

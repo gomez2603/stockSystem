@@ -16,6 +16,12 @@
               <p>Productos</p>
             </div>
           </a></li>
+          <li *appShowForRoles="['ADMIN']"><a routerLink="sales" routerLinkActive="active" >
+            <div class="sidenav">
+              <mat-icon>point_of_sale</mat-icon>
+              <p>Detalle de Ventas</p>
+            </div>
+          </a></li>
         <li *appShowForRoles="['STOCKER']"><a >
             <div class="sidenav">
               <mat-icon>people</mat-icon>

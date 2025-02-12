@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 
 string policy = "MyPolicy";
-var allowedOrigins = new[] { "http://localhost", "http://localhost:80", "http://localhost:4200", "http://35.162.201.84", "http://35.162.201.84:80", "http://lacasadetoby.com", "http://lacasadetoby.com:80" };
+var allowedOrigins = new[] { "http://localhost", "http://localhost:80", "http://localhost:4200", "http://35.162.201.84", "http://35.162.201.84:80", "http://lacasadetoby.com", "http://lacasadetoby.com:80", "http://www.lacasadetoby.com" };
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policy, builder =>
@@ -84,7 +84,10 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<stockSystemContext>();
-    dbContext.Database.Migrate();
+    if (dbContext.Database.GetPendingMigrations().Any())
+    {
+        dbContext.Database.Migrate();
+    }
 }
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

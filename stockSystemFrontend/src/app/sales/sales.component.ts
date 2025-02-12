@@ -31,14 +31,12 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatTableModule,
-    GramsToKgPipe
+    MatTableModule
   ],
   templateUrl: './sales.component.html',
   styleUrl: './sales.component.css'
 })
 export class SalesComponent implements OnInit {
-  private cdr = inject(ChangeDetectorRef);
   productControl = new FormControl('');
   availableProducts: any[] = []; // Lista de productos disponibles
   selectedProducts: any[] = []; // Productos seleccionados para la venta
@@ -47,7 +45,6 @@ export class SalesComponent implements OnInit {
  displayedColumns: string[] = ['name', 'price', 'quantity', 'total', 'actions'];
 
 private snackBar = inject(MatSnackBar);
-  private http = inject(HttpClient);
   private salesService = inject(SalesService);
     private readonly productService = inject(ProductService)
 

@@ -32,7 +32,7 @@ namespace stockSystem.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var data = _context.Sales.Include(x=>x.salesDetails).ThenInclude(x=>x.products).Include(x=>x.user).ToList();
+            var data = _context.Sales.Include(x=>x.salesDetails).ThenInclude(x=>x.products).Include(x=>x.user).OrderByDescending(x=>x.created_at).ToList();
             var map = _mapper.Map<List<SalesResponseDto>>(data);
 
             return Ok(map);
