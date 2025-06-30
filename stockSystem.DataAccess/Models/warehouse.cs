@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace stockSystem.DataAccess.Models
 {
-    public class Category
+    public class Warehouse
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]  
+        public string Description { get; set; }
+
+        public ICollection<Stock> Stock { get; set; } = new List<Stock>();
+
+
     }
 }

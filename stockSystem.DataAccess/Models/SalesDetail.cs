@@ -5,12 +5,12 @@ namespace stockSystem.DataAccess.Models
 {
     public class SalesDetail
     {
-        public int salesId { get; set; }
-        public Sales sales { get; set; }
-        public int productId { get; set; }  
-        public Product products { get; set; }
+        public int SalesId { get; set; }
+        public Sales Sales { get; set; }
+        public int ProductId { get; set; }  
+        public Product Products { get; set; }
         [Column(TypeName = "decimal(5, 2)")]
-        public decimal quantity { get; set; }
+        public decimal Quantity { get; set; }
 
     }
 }

@@ -15,10 +15,10 @@ namespace stockSystem.Repository.Implementation
 
         public void Update(Category category)
         {
-           var entity = _context.Category.FirstOrDefault(x=> x.id == category.id);
+           var entity = _context.Category.FirstOrDefault(x=> x.Id == category.Id);
             if (entity != null)
             {
-                entity.name = category.name;
+                entity.Name = category.Name;
                 _context.Category.Update(entity);
             }
         }

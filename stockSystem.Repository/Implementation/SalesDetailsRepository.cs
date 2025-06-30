@@ -21,11 +21,11 @@ namespace stockSystem.Repository.Implementation
 
         public void Update(SalesDetail entity)
         {
-            var salesupdate = _context.SalesDetail.FirstOrDefault(x=>x.salesId==entity.salesId);
+            var salesupdate = _context.SalesDetail.FirstOrDefault(x=>x.SalesId==entity.SalesId);
             if (salesupdate != null)
             {
-              salesupdate.productId = entity.productId;
-              salesupdate.quantity = entity.quantity;
+              salesupdate.ProductId = entity.ProductId;
+              salesupdate.Quantity = entity.Quantity;
                 _context.SalesDetail.Update(salesupdate);
             }
         }

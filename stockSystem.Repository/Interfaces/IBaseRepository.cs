@@ -1,4 +1,5 @@
-﻿using System;
+﻿using stockSystem.Repository.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,10 +12,7 @@ namespace stockSystem.Repository.Interfaces
     {
         T Get(int id);
 
-        IQueryable<T> GetAll(
-            Expression<Func<T, bool>> filter = null,
-            string incluirPropiedades = ""
-            );
+   PagedResult<T> GetAll(QueryParameters parameters, string[] includeProps = null);
 
         T FindOne(
             Expression<Func<T, bool>> filter = null,

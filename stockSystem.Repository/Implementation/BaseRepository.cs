@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using stockSystem.Repository.Interfaces;
+using stockSystem.Repository.Utils;
 using StockSystem.dataAccess.context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,28 +55,46 @@ namespace stockSystem.Repository.Implementation
 
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> filter = null, string incluirPropiedades = null)
+        public Utils.PagedResult<T> GetAll(QueryParameters parameters, string[] includeProps = null)
         {
             IQueryable<T> query = dbSet;
 
-            if (filter != null)
+            // Filtros dinámicos
+            foreach (var filtro in parameters.Filters)
             {
-                query = query.Where(filter);   // select * from where ...
-            }
-            
-            if (incluirPropiedades != null)
-            {
-                foreach (var incluirProp in incluirPropiedades.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                var propInfo = typeof(T).GetProperty(filtro.Key);
+                if (propInfo != null)
                 {
-                    query = query.Include(incluirProp);
+                    query = query.Where($"{filtro.Key}.ToString().Contains(@0)", filtro.Value);
                 }
             }
 
+            int totalCount = query.Count();
 
-            return query;
+            // Includes controlados por backend
+            if (includeProps != null)
+            {
+                foreach (var include in includeProps)
+                {
+                    query = query.Include(include);
+                }
+            }
 
+            query = query.OrderBy($"{parameters.OrderBy} {(parameters.Desc ? "descending" : "ascending")}");
+
+            var items = query
+                .Skip((parameters.Page - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToList();
+
+            return new Utils.PagedResult<T>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                Page = parameters.Page,
+                PageSize = parameters.PageSize
+            };
         }
-
         public void Remove(int id)
         {
             T entidad = dbSet.Find(id);
@@ -91,6 +111,6 @@ namespace stockSystem.Repository.Implementation
             dbSet.RemoveRange(entidad);
         }
 
-
+     
     }
 }

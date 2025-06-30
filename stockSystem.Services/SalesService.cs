@@ -92,12 +92,15 @@ namespace stockSystem.Services
                 var product =  _unitOfWork.productRepository.FindOne(x=>x.id  == detail.productId);
                 if (product != null)
                 {
+                    /*
                     product.quantity -= detail.quantity;
                     if (product.quantity < 0)
                     {
                         return false;   
                     }
+                    */
                     _unitOfWork.productRepository.Update(product);
+                    
                 }
             }
             return true;

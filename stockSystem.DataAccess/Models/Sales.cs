@@ -10,13 +10,13 @@ namespace stockSystem.DataAccess.Models
 {
     public class Sales
     {
-        public int id { get; set; }
-        public int salesBy { get; set; }
-        [ForeignKey("salesBy")]
-        public virtual User ? user { get; set; }
-        public DateTime created_at {  get; set; }   = DateTime.Now;
+        public int Id { get; set; }
+        public int SalesBy { get; set; }
+        [ForeignKey("SalesBy")]
+        public virtual User ? User { get; set; }
+        public DateTime CreatedAt {  get; set; }   = DateTime.Now;
         [Column(TypeName = "decimal(5, 2)")]
-        public decimal total { get; set; }
-        public virtual ICollection<SalesDetail>? salesDetails { get; set;}
+        public decimal Total { get; set; }
+        public virtual ICollection<SalesDetail>? SalesDetails { get; set;}
     }
 }

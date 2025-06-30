@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StockSystem.dataAccess.context;
 
@@ -11,9 +12,11 @@ using StockSystem.dataAccess.context;
 namespace stockSystem.DataAccess.Migrations
 {
     [DbContext(typeof(stockSystemContext))]
-    partial class stockSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20250306035345_product_refactor")]
+    partial class product_refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -11,10 +11,10 @@ namespace stockSystem.DataAccess.Models
         public class Rol
         {
             [Key]
-            public int id { get; set; }
+            public int Id { get; set; }
             [Required]
             [MaxLength(50)]
-            public string name { get; set; }
+            public string Name { get; set; }
         }
     }
 

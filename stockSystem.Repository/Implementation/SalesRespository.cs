@@ -20,11 +20,11 @@ namespace stockSystem.Repository.Implementation
 
         public void Update(Sales sales)
         {
-          var salesupdate = _contex.Sales.FirstOrDefault(x=>x.id == sales.id);
+          var salesupdate = _contex.Sales.FirstOrDefault(x=>x.Id == sales.Id);
             if (salesupdate != null)
             {
-                salesupdate.total = sales.total;
-                salesupdate.salesBy = sales.salesBy;
+                salesupdate.Total = sales.Total;
+                salesupdate.SalesBy = sales.SalesBy;
 
             }
         }

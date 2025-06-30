@@ -14,6 +14,9 @@ namespace StockSystem.dataAccess.context
     {
 
 
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Sales> Sales { get; set; }
@@ -36,6 +39,18 @@ namespace StockSystem.dataAccess.context
             builder.Entity<User>()
             .HasIndex(u => u.Username)
             .IsUnique();
+
+            builder.Entity<Product>()
+       .Property(p => p.price)
+       .HasComputedColumnSql("[Cost]  * (1 + [Margin])");
+
+            builder.Entity<Stock>()
+          .HasIndex(s => new { s.WarehouseId, s.ProductId })
+          .IsUnique(); 
+
+            builder.Entity<Stock>()
+                .Property(s => s.Quantity)
+                .HasColumnType("decimal(10,3)");
 
             builder.Entity<SalesDetail>()
                 .HasKey(sd => new {sd.salesId, sd.productId});

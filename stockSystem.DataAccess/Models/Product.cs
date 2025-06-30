@@ -14,27 +14,38 @@ namespace StockSystem.dataAccess.Models
     {
 
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string name { get; set; } = string.Empty;
-        public string description { get; set; } = string.Empty;
-        [Column(TypeName = "decimal(5, 2)")]
-        public decimal quantity { get; set; }
-        [Column(TypeName = "decimal(5, 2)")]
-        public decimal price { get; set; }
-        [AllowNull]
-        public string? image { get; set; }
-        public string? size {  get; set; }
-        public int categoryId { get; set; }
-        public virtual Category? category { get; set; }
-        public string? brand { get; set; }
-        public string? model { get; set; }
-        public string? barcode {  get; set; }
-        public int userId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
-        [ForeignKey("userId")]
-        public virtual User? user { get; set; }
-        public virtual ICollection<SalesDetail> salesDetails { get; set;}
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal Cost { get; set; }
+
+        public decimal Margin { get; set; }
+
+        [Column(TypeName = "decimal(5,2)")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public decimal Price { get; private set; }
+        [AllowNull]
+        public string? Image { get; set; }
+        public string? Size {  get; set; }
+        public int CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
+            
+        public int SupplierId { get; set; }
+        public virtual Supplier? Supplier { get; set; } 
+
+        public string? Brand { get; set; }
+        public string? Model { get; set; }
+        public string? Barcode {  get; set; }
+        public int CreatedBy { get; set; }
+
+        [ForeignKey("createdBy")]
+        public virtual User? User { get; set; }
+        public virtual ICollection<SalesDetail> SalesDetails { get; set;}
+
+        public ICollection<Stock> Stock { get; set; } = new List<Stock>();
 
     }   
 }
